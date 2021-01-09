@@ -24,7 +24,7 @@ export default class NewMedication extends React.Component {
     }
 
     handleSave = (key, value) => {
-        console.log(key, value);
+        // console.log(key, value);
         const theMed = {...this.state.medication};
         // const key = event.target.name;
         // const value = event.target.value;
@@ -50,7 +50,7 @@ export default class NewMedication extends React.Component {
     render() {
 
         const { medication } = this.state;
-        console.log(medication);
+        // console.log(medication);
 
         let unitOpts = [];
         this.FREQ_UNITS.forEach( unit => {

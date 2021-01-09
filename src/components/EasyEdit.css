@@ -1,0 +1,12 @@
+.easy-edit-wrapper,
+.easy-edit-inline-wrapper {
+    display: inline-block;
+}
+.easy-edit-hover-on {
+    font-style: normal; text-decoration: underline;
+}
+
+.easy-edit-component-wrapper input {
+    max-width: 100%;
+    display: inline-block;
+}

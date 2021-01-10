@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 
+/* enter your firebase info here and rename this to firebase.js */
 var firebaseConfig = {
     apiKey: "",
     authDomain: "",

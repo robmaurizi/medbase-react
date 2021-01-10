@@ -1,5 +1,4 @@
 import React from 'react';
-import EasyEdit from 'react-easy-edit';
 import { Button, Card } from 'semantic-ui-react'
 
 import { auth, db } from '../services/firebase';

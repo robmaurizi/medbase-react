@@ -35,38 +35,20 @@ export default class NewMedication extends React.Component {
 
     }
 
-    handleCancel = () => {
-        this.setState({
-            medication: this.emptyMed
-        });
-    }
-
-    handleSave = (key, value) => {
-        // console.log(key, value);
-        const theMed = {...this.state.medication};
-        // const key = event.target.name;
-        // const value = event.target.value;
-        theMed[key] = value;
-
-        this.setState({
-            medication: theMed
-        });
-    }
-
     handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const newMedRef = await db.ref(`${this.path}/meds`).push();
             newMedRef.set(this.state.medication);
-            this.setState({medication: this.emptyMed });
+            this.setState({medication: this.emptyMed, isEditing: false });
         } catch(error) {
             console.log(error.message);
         }
     }
 
-    handleCancel = () => {
-
+    handleCancel = (e) => {
+        e.preventDefault();
         this.setState({
             isEditing: !this.state.isEditing,
             medication: this.emptyMed
@@ -86,7 +68,8 @@ export default class NewMedication extends React.Component {
         return (
 
             (this.state.isEditing) ?
-                <Card.Content className="medication isEditing">
+                <Card.Content>
+                    <form onSubmit={this.handleSubmit} className="medication isEditing">
                     <div className="medContent">
                         <Card.Header>
                             <div className="medHeader">
@@ -109,7 +92,7 @@ export default class NewMedication extends React.Component {
                                     <select name="frequencyUnit" onChange={this.handleChange}>
                                         <option value="">per...</option>
                                         { unitOpts.map( opt => {
-                                            return (medication.frequencyUnit === opt.value) ? <option key={opt.value} value={opt.value} selected>{ opt.label }</option> : <option key={opt.value} value={opt.value}>{ opt.label }</option>
+                                            return <option key={opt.value} value={opt.value}>{ opt.label }</option>
                                         })}
                                     </select>
                                 </span>
@@ -125,9 +108,10 @@ export default class NewMedication extends React.Component {
                     <div className="medActions">
                         <React.Fragment>
                             <Button compact onClick={ this.handleCancel }>Cancel</Button>
-                            <Button compact primary onClick={ this.handleSubmit }>Save</Button>
+                            <Button type="submit" compact primary>Save</Button>
                         </React.Fragment>
                     </div>
+                    </form>
                 
                 </Card.Content>
 

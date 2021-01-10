@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card } from 'semantic-ui-react'
+import { Button, Card, Confirm } from 'semantic-ui-react'
 
 import { auth, db } from '../services/firebase';
 
@@ -18,11 +18,12 @@ export default class Medication extends React.Component {
         this.state = {
             medication: med,
             isEditing: false,
-            backupMed: med
+            backupMed: med,
+            confirmVisible: false
         }
     }
 
-    handleDelete = async (key) => {
+    deleteItem = async () => {
 
         try {
             await db.ref(this.path).remove();
@@ -32,8 +33,15 @@ export default class Medication extends React.Component {
 
     }
 
-    handleSave = async (e) => {
+    handleDelete = async (e) => {
+        e.preventDefault();
+        this.setState({
+            confirmVisible: true
+        });
+    }
 
+    handleSave = async (e) => {
+        e.preventDefault();
         this.setState({
             isEditing: false
         });
@@ -72,7 +80,8 @@ export default class Medication extends React.Component {
 
     }
 
-    handleEdit = () => {
+    handleEdit = (e) => {
+        e.preventDefault();
 
         this.setState({
             isEditing: !this.state.isEditing,
@@ -81,7 +90,8 @@ export default class Medication extends React.Component {
 
     }
 
-    handleCancel = () => {
+    handleCancel = (e) => {
+        e.preventDefault();
 
         this.setState({
             isEditing: false,
@@ -99,7 +109,8 @@ export default class Medication extends React.Component {
 
         const { medication } = this.state;
         return (
-            <Card.Content className={ this.state.isEditing ? 'medication isEditing' : 'medication' }>
+            <Card.Content>
+                <form onSubmit={ this.handleSave } className={ this.state.isEditing ? 'medication isEditing' : 'medication' }>
                 <div className="medContent">
                     <Card.Header>
                         <div className="medHeader">
@@ -132,10 +143,10 @@ export default class Medication extends React.Component {
                             &nbsp;
                             <span className="medFrequencyUnit">
                             { ( this.state.isEditing ) ? 
-                                <select name="frequencyUnit" onChange={this.handleChange}>
+                                <select name="frequencyUnit" onChange={this.handleChange} value={medication.frequencyUnit}>
                                     <option value="">per...</option>
                                     { unitOpts.map( opt => {
-                                        return (medication.frequencyUnit === opt.value) ? <option key={opt.value} value={opt.value} selected>{ opt.label }</option> : <option key={opt.value} value={opt.value}>{ opt.label }</option>
+                                        return<option key={opt.value} value={opt.value}>{ opt.label }</option>
                                     })}
                                 </select>
                                 : 
@@ -165,7 +176,7 @@ export default class Medication extends React.Component {
                 <div className="medActions">
                 { (this.state.isEditing) ? 
                     <React.Fragment>
-                        <Button compact primary onClick={ this.handleSave }>Save</Button>
+                        <Button type="submit" compact primary onClick={ this.handleSave }>Save</Button>
                         <Button compact onClick={ this.handleCancel }>Cancel</Button>
                     </React.Fragment>
                     :
@@ -175,7 +186,14 @@ export default class Medication extends React.Component {
                     </React.Fragment>
                 }
                 </div>
-                
+                </form>
+                <Confirm 
+                    header='Warning!'
+                    content='Are you sure you want to delete this medication? This is not undoable.'
+                    open={this.state.confirmVisible} 
+                    onCancel={ () => { this.setState({confirmVisible: false})} } 
+                    onConfirm={ this.deleteItem } 
+                />
                
             </Card.Content>
 

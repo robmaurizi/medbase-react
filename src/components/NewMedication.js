@@ -1,5 +1,4 @@
 import React from 'react';
-import EasyEdit from 'react-easy-edit';
 import { Button, Card } from 'semantic-ui-react'
 
 import { auth, db } from '../services/firebase';
@@ -18,9 +17,28 @@ export default class NewMedication extends React.Component {
 
         this.state = {
             person: this.props.person,
-            medication: this.emptyMed
+            medication: this.emptyMed,
+            isEditing: false
         }
 
+    }
+
+    handleChange = (e) => {
+        const key = e.target.name;
+        const val = e.target.value;
+        
+        let theMed = {...this.state.medication};
+        theMed[key] = val;
+        this.setState({
+            medication: theMed
+        });
+
+    }
+
+    handleCancel = () => {
+        this.setState({
+            medication: this.emptyMed
+        });
     }
 
     handleSave = (key, value) => {
@@ -47,6 +65,14 @@ export default class NewMedication extends React.Component {
         }
     }
 
+    handleCancel = () => {
+
+        this.setState({
+            isEditing: !this.state.isEditing,
+            medication: this.emptyMed
+        });
+    }    
+
     render() {
 
         const { medication } = this.state;
@@ -59,133 +85,62 @@ export default class NewMedication extends React.Component {
 
         return (
 
-            <Card.Content>
-                <Card.Header>
-                    <EasyEdit
-                        type="text"
-                        onSave={ (val) => { this.handleSave('name', val); } }
-                        onCancel={ () => {} }
-                        attributes={{name: "name" }}
-                        placeholder='Add Medication'
-                        saveOnBlur
-                        value={this.state.medication.name}
-                    />       
+            (this.state.isEditing) ?
+                <Card.Content className="medication isEditing">
+                    <div className="medContent">
+                        <Card.Header>
+                            <div className="medHeader">
+                                <span className="medName">
+                                    <input placeholder="Medication Name" name="name" type="text" value={medication.name} onChange={ this.handleChange } /> 
+                                </span>
+                                <span className="right floated medStrength">
+                                    <input placeholder="Strength" name="strength" type="text" value={medication.strength} onChange={ this.handleChange } /> 
+                                </span>     
+                            </div>
+                        </Card.Header>
 
-                    <span className="right floated">
-                        <EasyEdit
-                            type="text"
-                            onSave={ (val) => { this.handleSave('strength', val); } }
-                            onCancel={ () => {} }
-                            attributes={{name: "strength" }}
-                            placeholder='Strength'
-                            saveOnBlur
-                            value={this.state.medication.strength}
-                        />
-                    </span>                
-                </Card.Header>
-
-                <Card.Description>
-                    <EasyEdit
-                        type="number"
-                        onSave={ (val) => { this.handleSave('frequencyAmt', val); } }
-                        onCancel={ () => {} }
-                        attributes={{name: "frequenceyAmt", "min": 1 }}
-                        placeholder='Frequency'
-                        saveOnBlur
-                        value={this.state.medication.frequencyAmt}
-                    />
-                    &nbsp;
-                    <EasyEdit
-                        type="select"
-                        onSave={ (val) => { this.handleSave('frequencyUnit', val); } }
-                        onCancel={ () => {} }
-                        attributes={{name: "frequencyUnit" }}
-                        options={unitOpts}
-                        placeholder="per..."
-                        saveOnBlur
-                        value={this.state.medication.frequencyUnit}
-                    />                       
-
-                    <span className="right floated">
-                        <i className="user icon"></i> 
-                        <EasyEdit
-                            type="text"
-                            onSave={ (val) => { this.handleSave('doctor', val); } }
-                            onCancel={ () => {} }
-                            attributes={{name: "doctor" }}
-                            placeholder='Doctor'
-                            saveOnBlur
-                            value={this.state.medication.doctor}
-                        />
-                    </span>
-
-                </Card.Description>
-                <Card.Meta>
-                    <EasyEdit
-                        type="text"
-                        onSave={ (val) => { this.handleSave('notes', val); } }
-                        onCancel={ () => {} }
-                        attributes={{name: "notes" }}
-                        placeholder='Notes'
-                        saveOnBlur
-                        value={this.state.medication.notes}
-                    />
-                </Card.Meta>
-
-                <Button compact primary floated='right' onClick={this.handleSubmit}>Save</Button>
+                        <Card.Description className="medDescription">
+                            <div className="medFrequency">
+                                <span className="medFrequencyAmt">
+                                    <input placeholder="Frequency" name="frequencyAmt" type="number" min="1" value={medication.frequencyAmt} onChange={ this.handleChange } /> 
+                                </span>
+                                &nbsp;
+                                <span className="medFrequencyUnit">
+                                    <select name="frequencyUnit" onChange={this.handleChange}>
+                                        <option value="">per...</option>
+                                        { unitOpts.map( opt => {
+                                            return (medication.frequencyUnit === opt.value) ? <option key={opt.value} value={opt.value} selected>{ opt.label }</option> : <option key={opt.value} value={opt.value}>{ opt.label }</option>
+                                        })}
+                                    </select>
+                                </span>
+                            </div>
+                            <span className="medDoctor">
+                                <input placeholder="Doctor" name="doctor" type="text" value={medication.doctor} onChange={ this.handleChange } /> 
+                            </span>
+                        </Card.Description>
+                        <Card.Meta className="medNotes">
+                            <input placeholder="notes" name="notes" type="text" value={medication.notes} onChange={ this.handleChange } /> 
+                        </Card.Meta>
+                    </div>
+                    <div className="medActions">
+                        <React.Fragment>
+                            <Button compact onClick={ this.handleCancel }>Cancel</Button>
+                            <Button compact primary onClick={ this.handleSubmit }>Save</Button>
+                        </React.Fragment>
+                    </div>
                 
+                </Card.Content>
+
+            : 
+
+            <Card.Content className="medication addNewMed">
+                <Button compact onClick={ this.handleCancel }>Add New Medication</Button>
             </Card.Content>
+
                          
         );
 
-        // return(
-        //     <div>
-        //         <h2>Add Medication</h2>
-        //         <form className="ui form" onSubmit={this.handleSubmit}>
-        //             <div className="field">
-        //                 <label>Medication Name</label>
-        //                 <input type="text" name="name" onChange={this.handleChange} value={medication.name} />
-        //             </div>
-
-        //             <div className="field">
-        //                 <label>Strength</label>
-        //                 <input type="text" name="strength" onChange={this.handleChange} value={medication.strength} />
-        //             </div>
-
-        //             <div className="field">
-        //                 <label>Frequency</label>
-        //                 <div className="two fields">
-        //                     <div className="field">
-        //                         <input type="number" min="1" step="1" name="frequencyAmt" onChange={this.handleChange} value={medication.frequencyAmt} />
-        //                     </div>
-        //                     <div className="field">
-        //                         <select name="frequencyUnit" className="ui fluid dropdown" onChange={this.handleChange} value={medication.frequencyUnit}>
-        //                             { this.FREQ_UNITS.map( unit => {
-        //                                 return (this.state.medication.frequencyUnit === unit ) ? (<option key={unit} value={unit} selected>{ unit }</option>) : (<option key={unit} value={unit}>{unit}</option>)
-        //                             })
-        //                         }
-        //                         </select>
-        //                     </div>
-        //                 </div>
-        //             </div>
-
-        //             <div className="field">
-        //                 <label>Doctor</label>
-        //                 <input type="text" name="doctor" onChange={this.handleChange} value={medication.doctor} />
-        //             </div>
-
-        //             <div className="field">
-        //                 <label>Notes</label>
-        //                 <textarea name="notes" onChange={this.handleChange} value={medication.notes}></textarea>
-        //             </div>
-
-        //             <div className="field">
-        //                 <button type="submit" className="ui primary basic button">Add Medication</button>
-        //             </div>
-
-        //         </form>
-        //     </div>
-        // )
+        
     }
 
 

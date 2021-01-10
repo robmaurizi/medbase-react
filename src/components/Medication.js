@@ -100,72 +100,73 @@ export default class Medication extends React.Component {
         const { medication } = this.state;
         return (
             <Card.Content className={ this.state.isEditing ? 'medication isEditing' : 'medication' }>
-                <Card.Header>
-                    <div className="medHeader">
-                        <span className="medName">
+                <div className="medContent">
+                    <Card.Header>
+                        <div className="medHeader">
+                            <span className="medName">
+                                { ( this.state.isEditing ) ? 
+                                    <input placeholder="Medication Name" name="name" type="text" value={medication.name} onChange={ this.handleChange } /> 
+                                    : 
+                                    medication.name 
+                                }
+                            </span>
+                            <span className="right floated medStrength">
+                                { ( this.state.isEditing ) ? 
+                                    <input placeholder="Strength" name="strength" type="text" value={medication.strength} onChange={ this.handleChange } /> 
+                                    : 
+                                    medication.strength
+                                }
+                            </span>     
+                        </div>
+                    </Card.Header>
+
+                    <Card.Description className="medDescription">
+                        <div className="medFrequency">
+                            <span className="medFrequencyAmt">
                             { ( this.state.isEditing ) ? 
-                                <input placeholder="Medication Name" name="name" type="text" value={medication.name} onChange={ this.handleChange } /> 
+                                <input placeholder="Frequency" name="frequencyAmt" type="number" min="1" value={medication.frequencyAmt} onChange={ this.handleChange } /> 
                                 : 
-                                medication.name 
+                                medication.frequencyAmt
+                            }
+                            </span>
+                            &nbsp;
+                            <span className="medFrequencyUnit">
+                            { ( this.state.isEditing ) ? 
+                                <select name="frequencyUnit" onChange={this.handleChange}>
+                                    <option value="">per...</option>
+                                    { unitOpts.map( opt => {
+                                        return (medication.frequencyUnit === opt.value) ? <option key={opt.value} value={opt.value} selected>{ opt.label }</option> : <option key={opt.value} value={opt.value}>{ opt.label }</option>
+                                    })}
+                                </select>
+                                : 
+                                medication.frequencyUnit
+                            }
+                            </span>
+                        </div>
+                        <span className="medDoctor">
+                            { ( this.state.isEditing ) ? 
+                                <input placeholder="Doctor" name="doctor" type="text" value={medication.doctor} onChange={ this.handleChange } /> 
+                                : 
+                                <React.Fragment>
+                                    { (medication.doctor) ? <i className="user icon"></i> : null }
+                                    {medication.doctor}
+                                </React.Fragment>
                             }
                         </span>
-                        <span className="right floated medStrength">
-                            { ( this.state.isEditing ) ? 
-                                <input placeholder="Strength" name="strength" type="text" value={medication.strength} onChange={ this.handleChange } /> 
+                    </Card.Description>
+                    <Card.Meta className="medNotes">
+                        { ( this.state.isEditing ) ? 
+                                <input placeholder="notes" name="notes" type="text" value={medication.notes} onChange={ this.handleChange } /> 
                                 : 
-                                medication.strength
+                                medication.notes
                             }
-                        </span>     
-                    </div>
-                </Card.Header>
-
-                <Card.Description className="medDescription">
-                    <div className="medFrequency">
-                        <span className="medFrequencyAmt">
-                        { ( this.state.isEditing ) ? 
-                            <input placeholder="Frequency" name="frequencyAmt" type="number" min="1" value={medication.frequencyAmt} onChange={ this.handleChange } /> 
-                            : 
-                            medication.frequencyAmt
-                        }
-                        </span>
-                        &nbsp;
-                        <span className="medFrequencyUnit">
-                        { ( this.state.isEditing ) ? 
-                            <select name="frequencyUnit" onChange={this.handleChange}>
-                                <option value="">per...</option>
-                                { unitOpts.map( opt => {
-                                    return (medication.frequencyUnit === opt.value) ? <option key={opt.value} value={opt.value} selected>{ opt.label }</option> : <option key={opt.value} value={opt.value}>{ opt.label }</option>
-                                })}
-                            </select>
-                            : 
-                            medication.frequencyUnit
-                        }
-                        </span>
-                    </div>
-                    <span className="medDoctor">
-                        { ( this.state.isEditing ) ? 
-                            <input placeholder="Doctor" name="doctor" type="text" value={medication.doctor} onChange={ this.handleChange } /> 
-                            : 
-                            <React.Fragment>
-                                { (medication.doctor) ? <i className="user icon"></i> : null }
-                                {medication.doctor}
-                            </React.Fragment>
-                        }
-                    </span>
-                </Card.Description>
-                <Card.Meta className="medNotes">
-                    { ( this.state.isEditing ) ? 
-                            <input placeholder="notes" name="notes" type="text" value={medication.notes} onChange={ this.handleChange } /> 
-                            : 
-                            medication.notes
-                        }
-                </Card.Meta>
-
+                    </Card.Meta>
+                </div>
                 <div className="medActions">
                 { (this.state.isEditing) ? 
                     <React.Fragment>
-                        <Button compact onClick={ this.handleCancel }>Cancel</Button>
                         <Button compact primary onClick={ this.handleSave }>Save</Button>
+                        <Button compact onClick={ this.handleCancel }>Cancel</Button>
                     </React.Fragment>
                     :
                     <React.Fragment>

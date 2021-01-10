@@ -1,9 +1,13 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import { Route, Router, Switch, Redirect } from 'react-router-dom';
 
+import history from './helpers/history';
+
+import Header from './components/Header';
 import PeopleList from './pages/PeopleList';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import About from './pages/About';
 
 import { auth } from './services/firebase';
 
@@ -20,7 +24,7 @@ function PrivateRoute({ component: Component, authenticated, ...rest}) {
         {...rest}
         render={(props) => authenticated === true
            ? <Component { ...props } />
-          : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />}
+          : <Redirect to={{ pathname: '/about', state: { from: props.location } }} />}
       />
     )
   };
@@ -66,14 +70,18 @@ function PrivateRoute({ component: Component, authenticated, ...rest}) {
 
       render() {
           return this.state.loading === true ? <h2>Loading...</h2>: (
-              <Router>
-                  <Switch>
-                      {/* <Route exact path="/" component={Home}></Route> */}
-                      <PrivateRoute exact path="/" authenticated={this.state.authenticated} component={PeopleList}></PrivateRoute>
-                      <PublicRoute path="/signup" authenticated={this.state.authenticated} component={SignUp}></PublicRoute>
-                      <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login}></PublicRoute>
-                  </Switch>
-              </Router>
+              <div className="ui container">
+                <Router history={history}>
+                    <Header authenticated={this.state.authenticated} />
+                    <Switch>
+                        {/* <Route exact path="/" component={Home}></Route> */}
+                        <PrivateRoute exact path="/" authenticated={this.state.authenticated} component={PeopleList}></PrivateRoute>
+                        <PublicRoute exact path="/about" authenticated={this.state.authenticated} component={About}></PublicRoute>
+                        <PublicRoute exact path="/signup" authenticated={this.state.authenticated} component={SignUp}></PublicRoute>
+                        <PublicRoute exact path="/login" authenticated={this.state.authenticated} component={Login}></PublicRoute>
+                    </Switch>
+                </Router>
+              </div>
           )
       }
   }

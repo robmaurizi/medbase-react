@@ -68,9 +68,8 @@ export default class Login extends React.Component {
 
                     <fieldset>
                         <legend>Log in with Google</legend>
-                        <button type="button" onClick={this.googleSignIn}>Sign Up with Google</button>
+                        <button type="button" onClick={this.googleSignIn}>Sign In with Google</button>
                     </fieldset>
-
 
                 </form>
             </div>

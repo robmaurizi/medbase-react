@@ -1,0 +1,12 @@
+.person {
+    display: inline-flex;
+    width: calc(100% - 30px);
+    justify-content: space-between;
+}
+
+.personActions {
+    display: none;
+    .active & {
+        display: block;
+    }
+}

@@ -10,6 +10,8 @@ import { auth } from './services/firebase';
 import './components/EasyEdit.css';
 import 'semantic-ui-css/semantic.min.css'
 
+import './App.scss';
+
 
 
 function PrivateRoute({ component: Component, authenticated, ...rest}) {

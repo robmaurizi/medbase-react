@@ -46,8 +46,12 @@ export default class PeopleList extends React.Component {
     }
 
     async handleSubmit(event) {
+
+
         event.preventDefault();
         this.setState({writeError: null});
+
+        if (this.state.newPerson.name === '') return;
 
         try {
             const newPersonRef = await db.ref(this.path).push();

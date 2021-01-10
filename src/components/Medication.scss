@@ -1,0 +1,92 @@
+.medication {
+
+    display: flex;
+    // flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+
+    position: relative;
+
+    padding-bottom: calc(50px + 1.5em) !important;
+    input,
+    select {
+        width: 100%;
+    }
+}
+
+.medContent {
+    width: 100%;
+}
+
+.medHeader {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .medName {
+        flex-basis: 70%;
+    }
+    .medStrength {
+        flex-basis: 30%;
+        text-align: right;;
+    }
+}
+
+.medDescription {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1em;
+
+    .medFrequency {
+        flex-basis: 70%;
+        .isEditing & {
+            display: flex;
+        }
+    }
+
+    .medFrequencyAmt {
+        flex-basis: 25%;
+    }
+    .medFrequencyUnit {
+        flex-basis: 75%;
+    }
+
+    .medDoctor {
+        flex-basis: 30%;
+        text-align: right;
+
+        input {
+            display: inline-block;
+            width: 100%;
+        }
+    }
+}
+
+.medActions {
+    // width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding-top: 1em;
+    border-top: 1px solid #CCC;
+    margin-top: .5em;
+    display: flex;
+    justify-content: flex-end;
+
+    align-self: end;
+
+}
+
+.addNewMed {
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1em !important;
+}

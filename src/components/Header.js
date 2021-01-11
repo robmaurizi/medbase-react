@@ -16,11 +16,15 @@ const Header = (props) => {
         });
     }
 
+    if ( authenticated ) {
+        console.log( auth().currentUser );
+    }
     return (
         <div className="ui secondary pointing menu">
+            <Link to="/" className="item"><strong>MedBase</strong></Link>
             <Link to="/" className="item">Home</Link>
             { authenticated ?
-            <span className="item">Signed is { auth().currentUser.displayName }&nbsp; <Link to="/" onClick={ handleSignOut }>Log Out</Link></span>
+            <span className="item">Signed is { (auth().currentUser.displayName) ? auth().currentUser.displayName : auth().currentUser.email }&nbsp; <Link to="/" onClick={ handleSignOut }>Log Out</Link></span>
             :
             <span className="item">
                 <Link to="/signup">Create an Account</Link> &nbsp; or &nbsp; <Link to="/login">Log In</Link>

@@ -21,13 +21,13 @@ const Header = (props) => {
     }
     return (
         <div className="ui secondary pointing menu">
-            <Link to="/" className="item"><strong>MedBase</strong></Link>
-            <Link to="/" className="item">Home</Link>
+            <Link to="./" className="item"><strong>MedBase</strong></Link>
+            <Link to="./" className="item">Home</Link>
             { authenticated ?
             <span className="item">Signed in as { (auth().currentUser.displayName) ? auth().currentUser.displayName : auth().currentUser.email }&nbsp; <Link to="/" onClick={ handleSignOut }>Log Out</Link></span>
             :
             <span className="item">
-                <Link to="/signup">Create an Account</Link> &nbsp; or &nbsp; <Link to="/login">Log In</Link>
+                <Link to="./signup">Create an Account</Link> &nbsp; or &nbsp; <Link to="./login">Log In</Link>
             </span>
             }
         </div>

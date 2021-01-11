@@ -71,7 +71,7 @@ export default class SignUp extends React.Component {
                 </fieldset>
                 <fieldset>
                     <legend>Sign up with your Google account</legend>
-                    <Button color="red" onClick={this.googleSignIn}>
+                    <Button type="button" color="red" onClick={this.googleSignIn}>
                         <Icon name='google' fitted /> &nbsp; Sign Up with Google
                     </Button>
 

@@ -46,32 +46,32 @@ export default class Login extends React.Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                    <h2>Log in to Medbase</h2>
-                    <p>Don't have an account? <Link to="/signup">Sign up here</Link>!</p>
-                    <fieldset>
-                        <legend>Log in with email &amp; password</legend>
-                        <div class="formRow">
-                            <label htmlFor="email">Email Address</label>
-                            <input id="email" placeholder="email@server.com" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
-                        </div>
-                        <div class="formRow">
-                            <label htmlFor="password">Password</label>
-                            <input id="password" placeholder="Password" name="password" type="password" onChange={this.handleChange} value={this.state.password} />
-                        </div>
-                        <div class="formRow">
-                            {this.state.error ? (
-                                <p>{this.state.error}</p>
-                            ): null }
-                            <Button primary type="submit">Log In</Button>
-                        </div>
-                    </fieldset>
+                <h2>Log in to Medbase</h2>
+                <p>Don't have an account? <Link to="/signup">Sign up here</Link>!</p>
+                <fieldset>
+                    <legend>Log in with email &amp; password</legend>
+                    <div class="formRow">
+                        <label htmlFor="email">Email Address</label>
+                        <input id="email" placeholder="email@server.com" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
+                    </div>
+                    <div class="formRow">
+                        <label htmlFor="password">Password</label>
+                        <input id="password" placeholder="Password" name="password" type="password" onChange={this.handleChange} value={this.state.password} />
+                    </div>
+                    <div class="formRow">
+                        {this.state.error ? (
+                            <p>{this.state.error}</p>
+                        ): null }
+                        <Button primary type="submit">Log In</Button>
+                    </div>
+                </fieldset>
 
-                    <fieldset>
-                        <legend>Log in with Google</legend>
-                        <Button color="red" onClick={this.googleSignIn}>
-                            <Icon name="google" /> &nbsp; Sign In with Google
-                        </Button>
-                    </fieldset>
+                <fieldset>
+                    <legend>Log in with Google</legend>
+                    <Button type="button" color="red" onClick={this.googleSignIn}>
+                        <Icon name="google" /> &nbsp; Sign In with Google
+                    </Button>
+                </fieldset>
 
             </Form>
         )

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form, Button, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import { signin, signInWithGoogle } from '../helpers/auth';
@@ -44,35 +45,35 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <form autoComplete="off" onSubmit={this.handleSubmit}>
-                    <h2>Log in to <Link to="/">Medbase</Link></h2>
-    
+            <Form onSubmit={this.handleSubmit}>
+                    <h2>Log in to Medbase</h2>
+                    <p>Don't have an account? <Link to="/signup">Sign up here</Link>!</p>
                     <fieldset>
                         <legend>Log in with email &amp; password</legend>
-                        <div>
+                        <div class="formRow">
                             <label htmlFor="email">Email Address</label>
                             <input id="email" placeholder="email@server.com" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
                         </div>
-                        <div>
+                        <div class="formRow">
                             <label htmlFor="password">Password</label>
                             <input id="password" placeholder="Password" name="password" type="password" onChange={this.handleChange} value={this.state.password} />
                         </div>
-                        <div>
+                        <div class="formRow">
                             {this.state.error ? (
                                 <p>{this.state.error}</p>
                             ): null }
-                            <button type="submit">Log In</button>
+                            <Button primary type="submit">Log In</Button>
                         </div>
                     </fieldset>
 
                     <fieldset>
                         <legend>Log in with Google</legend>
-                        <button type="button" onClick={this.googleSignIn}>Sign In with Google</button>
+                        <Button color="red" onClick={this.googleSignIn}>
+                            <Icon name="google" /> &nbsp; Sign In with Google
+                        </Button>
                     </fieldset>
 
-                </form>
-            </div>
+            </Form>
         )
     }
 }

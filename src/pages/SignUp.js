@@ -62,7 +62,7 @@ export default class SignUp extends React.Component {
                         <label htmlFor="password">Password</label>
                         <input id="password" placeholder="Password" name="password" type="password" onChange={this.handleChange} value={this.state.password} />
                     </div>
-                    <div class="formRow">
+                    <div className="formRow">
                         {this.state.error ? (
                             <p>{this.state.error}</p>
                         ): null }

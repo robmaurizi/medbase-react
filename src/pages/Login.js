@@ -50,15 +50,15 @@ export default class Login extends React.Component {
                 <p>Don't have an account? <Link to="/signup">Sign up here</Link>!</p>
                 <fieldset>
                     <legend>Log in with email &amp; password</legend>
-                    <div class="formRow">
+                    <div className="formRow">
                         <label htmlFor="email">Email Address</label>
                         <input id="email" placeholder="email@server.com" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
                     </div>
-                    <div class="formRow">
+                    <div className="formRow">
                         <label htmlFor="password">Password</label>
                         <input id="password" placeholder="Password" name="password" type="password" onChange={this.handleChange} value={this.state.password} />
                     </div>
-                    <div class="formRow">
+                    <div className="formRow">
                         {this.state.error ? (
                             <p>{this.state.error}</p>
                         ): null }

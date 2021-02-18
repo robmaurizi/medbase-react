@@ -13,7 +13,6 @@ export default class Medication extends React.Component {
         const {med} = this.props;
 
         this.path = `users/${auth().currentUser.uid}/${this.props.person.key}/meds/${med.key}`;
-        // console.log(this.path);
 
         this.state = {
             medication: med,
@@ -46,25 +45,11 @@ export default class Medication extends React.Component {
             isEditing: false
         });
 
-        // console.log(key, value);
-        // const theMed = {...this.state.medication};
-        // const key = e.target.name;
-        // const val = e.target.value;
-
-        // theMed[key] = val;
-
-        // console.log(theMed);
-
-        // this.setState({
-        //     medication: theMed
-        // }, async function() {
-            try {
-                // console.log(this.state.medication);
-                await db.ref(this.path).update(this.state.medication);
-            } catch(error) {
-                console.log(error);
-            }        
-        // });
+        try {
+            await db.ref(this.path).update(this.state.medication);
+        } catch(error) {
+            console.log(error);
+        }        
 
     }    
 

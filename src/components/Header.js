@@ -9,28 +9,41 @@ const Header = (props) => {
     const handleSignOut = (e) => {
         e.preventDefault();
 
-        auth().signOut().then( () => {
-            console.log('signed out');
-        }).catch( e => {
+        auth().signOut().catch( e => {
             console.log(e);
         });
     }
 
-    if ( authenticated ) {
-        console.log( auth().currentUser );
+    const renderAccountLink = () => {
+
+        let displayName = '';
+        if ( authenticated ) {
+            displayName = auth().currentUser.displayName ? auth().currentUser.displayName : auth().currentUser.email;
+        }
+
+        return (
+            authenticated 
+                ? (<><span className="signed-in-text">Signed in as</span> <span className="signed-in-user">{displayName}</span> <Link to="/" onClick={ handleSignOut }>Log Out</Link></>) 
+                : (<><span className="new-account-text"><Link to="./signup">Create an Account</Link> or </span><Link to="./login">Log In</Link></>)
+        );
+
+
     }
+
     return (
-        <div className="ui secondary pointing menu">
-            <Link to="./" className="item"><strong>MedBase</strong></Link>
-            <Link to="./" className="item">Home</Link>
-            { authenticated ?
-            <span className="item">Signed in as { (auth().currentUser.displayName) ? auth().currentUser.displayName : auth().currentUser.email }&nbsp; <Link to="/" onClick={ handleSignOut }>Log Out</Link></span>
-            :
-            <span className="item">
-                <Link to="./signup">Create an Account</Link> &nbsp; or &nbsp; <Link to="./login">Log In</Link>
-            </span>
-            }
-        </div>
+        <header className="header masthead">
+            <h1 className="header-branding">
+                <Link to="./">MedBase</Link>
+            </h1>
+            <nav className="header-menu">
+                <ul className="menu">
+                    { !authenticated ? <li className="menu-item"><Link to="./">Home</Link></li> : null }
+                    <li className="menu-item menu-item-account">
+                        { renderAccountLink() }
+                    </li>
+                </ul>
+            </nav>
+        </header>
     );
 
 }

@@ -50,33 +50,38 @@ export default class SignUp extends React.Component {
         return (
             <Form onSubmit={this.handleSubmit}>
 
-                <h2>Create an account</h2>
-                <p>Already have an account? <Link to="/login">Log in here</Link>!</p>
-                <fieldset>
-                    <legend>Create an account with email &amp; password</legend>
-                    <div className="formRow">
-                        <label htmlFor="email">Email Address</label>
-                        <input id="email" placeholder="email@server.com" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
-                    </div>
-                    <div className="formRow">
-                        <label htmlFor="password">Password</label>
-                        <input id="password" placeholder="Password" name="password" type="password" onChange={this.handleChange} value={this.state.password} />
-                    </div>
-                    <div className="formRow">
-                        {this.state.error ? (
-                            <p>{this.state.error}</p>
-                        ): null }
-                        <Button primary type="submit">Sign Up</Button>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Sign up with your Google account</legend>
-                    <Button type="button" color="red" onClick={this.googleSignIn}>
-                        <Icon name='google' fitted /> &nbsp; Sign Up with Google
-                    </Button>
+                <div className="account-header">
+                    <h2>Create a MedBase account</h2>
+                    <p>Already have an account? <Link to="/login">Log in here</Link>!</p>
+                </div>
+                <div className="account-forms">
 
-                </fieldset>
+                    <fieldset className="login-container">
+                        <legend>Create an account with email &amp; password</legend>
+                        <div className="formRow">
+                            <label htmlFor="email">Email Address</label>
+                            <input id="email" placeholder="email@server.com" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
+                        </div>
+                        <div className="formRow">
+                            <label htmlFor="password">Password</label>
+                            <input id="password" placeholder="Password" name="password" type="password" onChange={this.handleChange} value={this.state.password} />
+                        </div>
+                        <div className="formRow">
+                            {this.state.error ? (
+                                <p>{this.state.error}</p>
+                            ): null }
+                            <Button primary type="submit">Sign Up</Button>
+                        </div>
+                    </fieldset>
+                    <fieldset className="login-container">
+                        <legend>Sign up with your Google account</legend>
+                        <Button type="button" color="red" onClick={this.googleSignIn}>
+                            <Icon name='google' fitted /> &nbsp; Sign Up with Google
+                        </Button>
+                    </fieldset>
 
+                </div>
+ 
             </Form>
 
         )

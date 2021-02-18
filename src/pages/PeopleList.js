@@ -85,12 +85,12 @@ export default class PeopleList extends React.Component {
         const { activeIndex } = this.state
 
         return (
-            <div className="ui container">
-                <Accordion fluid styled>
+            <div>
+                <Accordion fluid styled className="people-list">
                     { this.state.people.map( (person, i) => {
                         return (
                             <React.Fragment key={person.key}>
-                                <Accordion.Title active={activeIndex === i} index={i} onClick={this.handleClick}>
+                                <Accordion.Title className="ui" active={activeIndex === i} index={i} onClick={this.handleClick}>
                                     <Icon name='dropdown' />
                                     <Person person={person} />
                                 </Accordion.Title>
@@ -103,8 +103,8 @@ export default class PeopleList extends React.Component {
 
                 </Accordion>
 
-                <form className="ui form" onSubmit={this.handleSubmit}>
-                    <div className="field ui input">
+                <form className="ui form add-user-form" onSubmit={this.handleSubmit}>
+                    <div className="field ui input add-user">
                         <input type="text" placeholder="Jane Doe" name="newPerson" id="newPerson" value={this.state.newPerson.name} onChange={this.handleChange} />
                         { this.state.error ? <p>{this.state.writeError}</p> : null }
                     </div>

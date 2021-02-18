@@ -1,0 +1,59 @@
+.header {
+
+    padding: 1em 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    border-bottom: 2px solid #dedede;
+    margin-bottom: 2em;
+
+
+}
+
+.header-branding {
+    margin: 0;
+    line-height: 1;
+    a {
+        color: inherit;
+    }
+}
+
+.header-menu {
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+
+        &:hover {
+            color: #4183c4;
+            text-decoration: none;
+        }
+    }
+
+    .menu {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .menu-item {
+        margin-left: 2em;
+    }
+}
+
+.signed-in-text,
+.new-account-text {
+    display: none;
+
+    @media screen and (min-width: 768px) {
+        display: inline;
+    }
+}
+
+.signed-in-user {
+    padding-right: .5em;
+}

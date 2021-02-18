@@ -12,6 +12,8 @@
     input,
     select {
         width: 100%;
+        border: none;
+        border-bottom: 1px dashed #CCC;
     }
 }
 
@@ -24,13 +26,16 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    width: 100%;
 
     .medName {
         flex-basis: 70%;
+        margin-right: 1em;
+        font-weight: bold;
     }
     .medStrength {
         flex-basis: 30%;
-        text-align: right;;
+        text-align: right;
     }
 }
 
@@ -42,6 +47,8 @@
 
     .medFrequency {
         flex-basis: 70%;
+        margin-right: 1em;
+
         .isEditing & {
             display: flex;
         }
@@ -79,6 +86,10 @@
     justify-content: flex-end;
 
     align-self: end;
+
+    button.button {
+        margin: 0 0 0 .5em;
+    }
 
 }
 

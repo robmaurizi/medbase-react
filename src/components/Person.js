@@ -23,7 +23,6 @@ export default class Person extends React.Component {
     handleChange = (e) => {
         let person = { ...this.state.person }
         person.name = e.target.value;
-        // console.log(thePerson.name);
         
         this.setState({
             person
@@ -31,7 +30,6 @@ export default class Person extends React.Component {
     }
 
     handleEdit = (e) => {
-        console.log(e);
         e.preventDefault();
         e.stopPropagation();
         // e.stopBubbling();

@@ -45,9 +45,9 @@ export default class MedList extends React.Component {
         return (
             <Card.Group>
                 { this.state.meds.map( med => {
-                    return <Card key={med.key}><Medication med={med} person={this.props.person} /></Card>
+                    return <Card key={med.key} className="med-card"><Medication med={med} person={this.props.person} /></Card>
                 })}            
-                <Card key="newMed"><NewMedication person={this.props.person} /></Card>
+                <Card key="newMed" className="med-card new-med-card"><NewMedication person={this.props.person} /></Card>
             </Card.Group>
         );
     }

@@ -1,0 +1,22 @@
+.add-user-form {
+    margin-top: 2em;
+    padding-bottom: 4em;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 480px) {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 1em;
+    }
+}
+
+.field.ui.add-user {
+    flex: 1 0 auto;
+    margin-right: 1em;
+
+    @media screen and (max-width: 480px) {
+        margin-right: 0;
+    }
+}

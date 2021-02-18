@@ -1,3 +1,9 @@
+@import './overrides.scss';
+
+@import 'components/Header.scss';
 @import 'components/Person.scss';
 @import 'components/Medication.scss';
 @import 'components/Form.scss';
+@import 'components/MedList.scss';
+@import 'pages/PeopleList.scss';
+@import 'pages/Account.scss';

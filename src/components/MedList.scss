@@ -1,0 +1,15 @@
+.med-card {
+    flex: 0 1 auto;
+    width: calc((100% / 3) - 1em) !important;
+
+    @media screen and ( max-width: 991px) {
+        width: calc(50% - 1em) !important;
+    }
+
+    @media screen and (max-width: 767px) {
+        flex: 1 1 100%
+    }
+}
+.new-med-card {
+    flex: 1 0 auto;
+}

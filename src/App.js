@@ -4,6 +4,8 @@ import { Route, Router, Switch, Redirect } from 'react-router-dom';
 import history from './helpers/history';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
+
 import PeopleList from './pages/PeopleList';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
@@ -80,6 +82,7 @@ function PrivateRoute({ component: Component, authenticated, ...rest}) {
                         <PublicRoute exact path="/signup" authenticated={this.state.authenticated} component={SignUp}></PublicRoute>
                         <PublicRoute exact path="/login" authenticated={this.state.authenticated} component={Login}></PublicRoute>
                     </Switch>
+                    <Footer />
                 </Router>
               </div>
           )

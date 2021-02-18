@@ -58,7 +58,6 @@ export default class NewMedication extends React.Component {
     render() {
 
         const { medication } = this.state;
-        // console.log(medication);
 
         let unitOpts = [];
         this.FREQ_UNITS.forEach( unit => {
